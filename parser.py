@@ -1,0 +1,5 @@
+import tagcounter
+
+
+
+tagcounter.f()
