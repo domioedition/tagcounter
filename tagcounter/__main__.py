@@ -1,1 +1,0 @@
-print ('Hello from __main__')
