@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 from tkinter import *
 import tkinter
 
+from foobar.database import statistic
+
 
 def read_file(filename):
     with open(filename) as input_file:
@@ -36,6 +38,7 @@ def main():
     parser.add_argument("-r", "--resource", dest="resource", help="parse the specified RESOURCE",
                         metavar="RESOURCE")
     parser.add_argument("-t", "--test", dest="test", action="store_true", default=False, help="Test mode")
+    parser.add_argument("-v", "--view", dest="view", help="Check address in DB")
     # parser.add_argument("-x", "--xray",
     #                     help="specify xray strength factor")
     # parser.add_argument("-q", "--quiet",
@@ -43,6 +46,8 @@ def main():
     #                     help="don't print status messages to stdout")
     args = parser.parse_args()
     html_doc = None
+    name_of_resource = None
+    url = None
     if (args.resource is not None):
         """Parse from resource"""
         import requests
@@ -57,6 +62,10 @@ def main():
     elif (args.filename is not None):
         """Parse file"""
         html_doc = args.filename
+    elif (args.view is not None):
+        dbms = statistic.Statistic()
+        dbms.get_all()
+        # dbms.get_record(args.view)
     elif (args.config is not None):
         """Parse config.yaml file"""
         path = "config.yaml"
@@ -69,15 +78,14 @@ def main():
                 if args.config == val.strip() or args.config == key:
                     # print(args.config)
                     import requests
-                    response = requests.get("http://" + val.strip())
+                    name_of_resource = val.strip()
+                    url = "http://" + val.strip()
+                    response = requests.get(url)
                     if response.status_code == 200:
                         response.encoding = 'utf-8'
                         html_doc = response.text
                     else:
                         print('An error has occurred.')
-        # print(filepath)
-        # print(d)
-        # html_doc = args.filename
     else:
         print("Start GUI tkinter")
         path = "config.yaml"
@@ -98,10 +106,10 @@ def main():
 
 
     if html_doc is not None:
-        # html_content = read_file(html_doc)
-        html_content = read_stream(html_doc)
-        all_tags = parse_content(html_content)
+        all_tags = parse_content(html_doc)
         print(all_tags)
+        dbms = statistic.Statistic()
+        dbms.add_new_record(name=name_of_resource, url=url, tags=all_tags)
 
     # #todo import my own logger
     # import foobar.Logger as t
