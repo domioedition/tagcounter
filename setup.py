@@ -6,7 +6,7 @@ setup(
     author='Author',
     packages=['foobar'],
     description='Description',
-    package_data={'': ['*.txt']},
-    install_requires=['requests', 'bs4'],
-    entry_points={'console_scripts': ['foobar = foobar.foobaz:main']},
+    package_data={'': ['*.txt', '*.yaml']},
+    install_requires=['requests', 'bs4', 'sqlalchemy'],
+    entry_points={'console_scripts': ['foobar = foobar.foobaz:main']}
 )
