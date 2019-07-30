@@ -5,6 +5,7 @@ from tkinter import *
 import tkinter
 
 from foobar.database import statistic
+from foobar.gui import start
 
 
 def read_file(filename):
@@ -88,22 +89,59 @@ def main():
                         print('An error has occurred.')
     else:
         print("Start GUI tkinter")
-        path = "config.yaml"
-        filepath = pkg_resources.resource_filename(__name__, path)
-        checkbox_list = {}
-        top = Tk()
-        with open(filepath) as f:
-            for line in f:
-                (key, val) = line.split(':')
-                # checkbox_list[key] = val.strip()
-                # CheckVar
-                key = Checkbutton(top, text=val.strip(), variable=key, \
-                                  onvalue=1, offvalue=0, height=5, \
-                                  width=20, )
-                key.pack()
-            top.mainloop()
-        # print(checkbox_list)
 
+        start.main()
+        # def close_window():
+        #     root.destroy()
+        #
+        # def onclick(args):
+        #     if args == 1:
+        #         T.delete('1.0', END)
+        #         import requests
+        #         response = requests.get('http://ua.fm')
+        #         if response.status_code == 200:
+        #             response.encoding = 'utf-8'
+        #             # print(response.text)
+        #             all_tags = parse_content(response.text)
+        #             T.insert(tkinter.END, all_tags)
+        #             print(all_tags)
+        #     if args == 2:
+        #         print(2)
+        #     if args == 3:
+        #         print(3)
+        #
+        # all_tags = ""
+        # root = tkinter.Tk()
+        # root.title("Tagcounter")
+        # root.geometry("500x300")
+        #
+        # btn1 = tkinter.Button(root, text="Button1", command=lambda: onclick(1))
+        # btn2 = tkinter.Button(root, text="Button2", command=lambda: onclick(2))
+        # btn3 = tkinter.Button(root, text="Close", command=lambda: close_window())
+        # btn1.pack()
+        # btn2.pack()
+        # btn3.pack()
+        #
+        # T = tkinter.Text(root, height=50, width=200)
+        # T.pack()
+        #
+        # root.mainloop()
+
+        # path = "config.yaml"
+        # filepath = pkg_resources.resource_filename(__name__, path)
+        # checkbox_list = {}
+        # top = Tk()
+        # with open(filepath) as f:
+        #     for line in f:
+        #         (key, val) = line.split(':')
+        #         # checkbox_list[key] = val.strip()
+        #         # CheckVar
+        #         key = Checkbutton(top, text=val.strip(), variable=key, \
+        #                           onvalue=1, offvalue=0, height=5, \
+        #                           width=20, )
+        #         key.pack()
+        #     top.mainloop()
+        # # print(checkbox_list)
 
     if html_doc is not None:
         all_tags = parse_content(html_doc)
