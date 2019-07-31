@@ -1,32 +1,10 @@
 import pkg_resources
 from argparse import ArgumentParser
 from bs4 import BeautifulSoup
-from tkinter import *
-import tkinter
 
 from foobar.database import statistic
-from foobar.gui import start
-
-
-def read_file(filename):
-    with open(filename) as input_file:
-        text = input_file.read()
-    return text
-
-
-def read_stream(stream):
-    return stream
-
-
-def parse_content(content):
-    tags = {}
-    soup = BeautifulSoup(content, 'html.parser')
-    for tag in soup.findAll():
-        if tag.name in tags:
-            tags[tag.name] += 1
-        else:
-            tags[tag.name] = 1
-    return tags
+from foobar.parser import Parser
+from foobar.tagcountergui import TagcounterGUI
 
 
 def main():
@@ -55,14 +33,9 @@ def main():
         response = requests.get(args.resource)
         if response.status_code == 200:
             response.encoding = 'utf-8'
-            # print(response.text)
-            html_doc = response.text
-        else:
-            print('An error has occurred.')
-
-    elif (args.filename is not None):
-        """Parse file"""
-        html_doc = args.filename
+            parser = Parser()
+            tags_list = parser.parse_content(response.text)
+            print(tags_list)
     elif (args.view is not None):
         dbms = statistic.Statistic()
         dbms.get_all()
@@ -84,13 +57,16 @@ def main():
                     response = requests.get(url)
                     if response.status_code == 200:
                         response.encoding = 'utf-8'
-                        html_doc = response.text
+                        parser = Parser()
+                        tags_list = parser.parse_content(response.text)
+                        print(tags_list)
                     else:
                         print('An error has occurred.')
     else:
         print("Start GUI tkinter")
-
-        start.main()
+        x = TagcounterGUI()
+        x.main()
+        # start.main()
         # def close_window():
         #     root.destroy()
         #
@@ -143,13 +119,15 @@ def main():
         #     top.mainloop()
         # # print(checkbox_list)
 
-    if html_doc is not None:
-        all_tags = parse_content(html_doc)
-        print(all_tags)
-        dbms = statistic.Statistic()
-        dbms.add_new_record(name=name_of_resource, url=url, tags=all_tags)
 
-    # #todo import my own logger
+        # todo implemt save statistic to db
+        # dbms = statistic.Statistic()
+        # dbms.add_new_record(name=name_of_resource, url=url, tags=all_tags)
+
+        # todo implement logger
+        # todo implement unittests
+
+
     # import foobar.Logger as t
     # t.testlogger()
 

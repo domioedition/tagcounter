@@ -3,7 +3,7 @@ from tkinter import ttk
 
 
 class Combobox(Tk):
-    def __init__(self) -> object:
+    def __init__(self):
         super(Combobox, self).__init__()
         self.title("Tkinter combobx")
         self.minsize(640, 400)
