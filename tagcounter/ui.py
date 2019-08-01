@@ -3,7 +3,7 @@ from tkinter import ttk
 
 import pkg_resources
 
-from foobar.parser import Parser
+from tagcounter.parser import Parser
 
 
 class UI(Tk):

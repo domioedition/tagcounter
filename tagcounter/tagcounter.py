@@ -1,9 +1,9 @@
 import pkg_resources
 from argparse import ArgumentParser
 
-from foobar import statistic
-from foobar.parser import Parser
-from foobar.ui import UI
+from tagcounter import statistic
+from tagcounter.parser import Parser
+from tagcounter.ui import UI
 
 
 def main():
@@ -98,7 +98,7 @@ def main():
         # todo implement logger
         # todo implement unittests
 
-    # import foobar.Logger as t
+    # import tagcounter.Logger as t
     # t.testlogger()
 
     if url is not None:

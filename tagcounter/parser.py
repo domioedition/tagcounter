@@ -3,7 +3,7 @@ import requests
 import logging
 from datetime import datetime
 
-from foobar.statistic import Statistic
+from tagcounter.statistic import Statistic
 
 
 class Parser():
