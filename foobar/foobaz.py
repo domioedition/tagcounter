@@ -1,45 +1,28 @@
 import pkg_resources
 from argparse import ArgumentParser
-from bs4 import BeautifulSoup
 
-from foobar.database import statistic
+from foobar import statistic
 from foobar.parser import Parser
-from foobar.tagcountergui import TagcounterGUI
+from foobar.ui import UI
 
 
 def main():
     parser = ArgumentParser()
-    # parser.add_argument("indent", type=int, help="indent for report")
-    # parser.add_argument("input_file", help="read data from this file")
     parser.add_argument("-g", "--get", dest="config", help="parse the specified from config file",
                         metavar="CONFIG FILE")
-    parser.add_argument("-f", "--file", dest="filename", help="parse the specified FILE", metavar="FILE")
     parser.add_argument("-r", "--resource", dest="resource", help="parse the specified RESOURCE",
                         metavar="RESOURCE")
     parser.add_argument("-t", "--test", dest="test", action="store_true", default=False, help="Test mode")
     parser.add_argument("-v", "--view", dest="view", help="Check address in DB")
-    # parser.add_argument("-x", "--xray",
-    #                     help="specify xray strength factor")
-    # parser.add_argument("-q", "--quiet",
-    #                     action="store_false", dest="verbose", default=True,
-    #                     help="don't print status messages to stdout")
     args = parser.parse_args()
-    html_doc = None
-    name_of_resource = None
+
     url = None
     if (args.resource is not None):
         """Parse from resource"""
-        import requests
-        response = requests.get(args.resource)
-        if response.status_code == 200:
-            response.encoding = 'utf-8'
-            parser = Parser()
-            tags_list = parser.parse_content(response.text)
-            print(tags_list)
+        url = args.resource
     elif (args.view is not None):
         dbms = statistic.Statistic()
-        dbms.get_all()
-        # dbms.get_record(args.view)
+        dbms.get_record(args.view)
     elif (args.config is not None):
         """Parse config.yaml file"""
         path = "config.yaml"
@@ -50,21 +33,10 @@ def main():
                 (key, val) = line.split(':')
                 d[key] = val.strip()
                 if args.config == val.strip() or args.config == key:
-                    # print(args.config)
-                    import requests
-                    name_of_resource = val.strip()
-                    url = "http://" + val.strip()
-                    response = requests.get(url)
-                    if response.status_code == 200:
-                        response.encoding = 'utf-8'
-                        parser = Parser()
-                        tags_list = parser.parse_content(response.text)
-                        print(tags_list)
-                    else:
-                        print('An error has occurred.')
+                    url = val.strip()
     else:
         print("Start GUI tkinter")
-        x = TagcounterGUI()
+        x = UI()
         x.main()
         # start.main()
         # def close_window():
@@ -119,7 +91,6 @@ def main():
         #     top.mainloop()
         # # print(checkbox_list)
 
-
         # todo implemt save statistic to db
         # dbms = statistic.Statistic()
         # dbms.add_new_record(name=name_of_resource, url=url, tags=all_tags)
@@ -127,9 +98,13 @@ def main():
         # todo implement logger
         # todo implement unittests
 
-
     # import foobar.Logger as t
     # t.testlogger()
+
+    if url is not None:
+        parser = Parser()
+        tags_list = parser.parse_content(url, "http://")
+        print(tags_list)
 
 
 """Logging"""

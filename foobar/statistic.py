@@ -38,7 +38,7 @@ class Statistic:
 
     def add_new_record(self, name, url, tags):
         """Adding new record to database"""
-        people_ins = self.statistic.insert().values(name=name, url=url, tags=tags)
-        str(people_ins)
-        self.session.execute(people_ins)
+        record = self.statistic.insert().values(name=name, url=url, tags=tags)
+        str(record)
+        self.session.execute(record)
         self.session.commit()
