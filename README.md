@@ -9,6 +9,9 @@ pip install .
 
 # Usage
 
+run GUI interface
+tagcounter
+
 get tags using config file
 tagcounter --get "yahoo.com"
 
