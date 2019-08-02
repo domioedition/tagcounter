@@ -9,17 +9,23 @@ pip install .
 
 # Usage
 
-run GUI interface
+*run GUI interface:*
+
 tagcounter
 
-get tags using config file
+
+*get tags using config file:*
+
 tagcounter --get "yahoo.com"
 
-get from any resource
+*get from any resource:*
+
 tagcounter -r yahoo.com
 
-get statistic from database
+*get statistic from database:*
+
 tagcounter -v yahoo.com
 
-run tests(not implemented!)
+*run tests(not implemented!):*
+
 tagcounter -t
