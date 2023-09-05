@@ -1,5 +1,3 @@
-import requests
-
 from bs4 import BeautifulSoup
 
 from pasrser.parser import Parser
@@ -9,17 +7,10 @@ class HtmlParser(Parser):
     def __init__(self):
         self._html_parser = BeautifulSoup()
 
-    def parse_content(self, url) -> dict:
-        # todo move request to separate file. this class should be responsible only for parse content
-        response = requests.get(url)
-        if response.status_code != 200:
-            raise ValueError("Data is not available")
-
-        if response.encoding != "UTF-8":
-            response.encoding = "utf-8"
+    def parse_content(self, content) -> dict:
         tags = {}
 
-        soup = BeautifulSoup(response.text, "html.parser")
+        soup = BeautifulSoup(content, "html.parser")
         for tag in soup.findAll():
             if tag.name in tags:
                 tags[tag.name] += 1

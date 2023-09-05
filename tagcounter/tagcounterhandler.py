@@ -11,8 +11,8 @@ class TagCounterHandler:
         self._parser = parser
         self._logger = logger
 
-    def please_count_tags(self, url):
-        return self._parser.parse_content(url)
+    def please_count_tags(self, content):
+        return self._parser.parse_content(content)
 
     def please_count_tags_using_ui(self):
         pass

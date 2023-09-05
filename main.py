@@ -1,5 +1,7 @@
 import argparse
 
+import requests
+
 from logger.logger_handler import LoggerHandler
 from pasrser.html_parser import HtmlParser
 from pasrser.xml_parser import XmlParser
@@ -28,8 +30,18 @@ def main():
 
     try:
         logger.info("Initialized")
+
+        ################################################
+        # REQUEST
+        response = requests.get(url)
+        if response.status_code != 200:
+            raise ValueError("Data is not available")
+        if response.encoding != "UTF-8":
+            response.encoding = "utf-8"
+        ################################################
+
         tag_counter = TagCounterHandler(parser, logger)
-        tags = tag_counter.please_count_tags(url)
+        tags = tag_counter.please_count_tags(response.text)
         print(tags)
 
         # todo implement saving to the database SQLAlchemy

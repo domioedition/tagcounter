@@ -2,5 +2,5 @@ from pasrser.parser import Parser
 
 
 class XmlParser(Parser):
-    def parse_content(self, url):
+    def parse_content(self, content):
         return "XML - Content"
