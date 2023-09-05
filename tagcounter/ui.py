@@ -29,10 +29,10 @@ class UI(Tk):
         urls_list = []
         with open(filepath) as f:
             for line in f:
-                (key, val) = line.split(':')
+                (key, val) = line.split(":")
                 urls_list.append(val.strip())
 
-        self.combo['values'] = urls_list
+        self.combo["values"] = urls_list
         self.combo.grid(column=1, row=0)
 
         self.label = ttk.Label(self, text="Select address to parse:")
@@ -42,6 +42,6 @@ class UI(Tk):
         self.button.grid(column=1, row=5)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = UI()
     root.mainloop()
