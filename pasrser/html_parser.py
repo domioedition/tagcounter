@@ -10,6 +10,7 @@ class HtmlParser(Parser):
         self._html_parser = BeautifulSoup()
 
     def parse_content(self, url) -> dict:
+        # todo move request to separate file. this class should be responsible only for parse content
         response = requests.get(url)
         if response.status_code != 200:
             raise ValueError("Data is not available")
