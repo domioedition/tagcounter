@@ -10,7 +10,7 @@ class HtmlParser(Parser):
     def parse_content(self, content) -> dict:
         tags = {}
 
-        soup = self._html_parser(content, "html.parser")
+        soup = BeautifulSoup(content, "html.parser")
         for tag in soup.findAll():
             if tag.name in tags:
                 tags[tag.name] += 1
