@@ -1,3 +1,5 @@
+import argparse
+
 from logger.logger_handler import LoggerHandler
 from pasrser.html_parser import HtmlParser
 from pasrser.xml_parser import XmlParser
@@ -9,7 +11,20 @@ def main():
     parser = HtmlParser()
     logger = LoggerHandler()
 
-    url = "_http://example.com"  # todo check error handling and logging
+    url = "http://example.com"  # todo check error handling and logging
+
+    argument_parser = argparse.ArgumentParser(description="Ping script")
+    argument_parser.add_argument(
+        "-r",
+        "--resource",
+        dest="resource",
+        help="parse the specified RESOURCE",
+        metavar="RESOURCE",
+    )
+    args = argument_parser.parse_args()
+
+    if args.resource:
+        url = args.resource
 
     try:
         logger.info("Initialized")
@@ -22,6 +37,7 @@ def main():
         # dbms.add_new_record("link_resource", url, tags)
 
     except ValueError as e:
+        print(e.args[0])
         logger.error(e.args[0])
     except Exception as e:
         print(e.args)
