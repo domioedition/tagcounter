@@ -24,7 +24,7 @@ class UI(Tk):
 
         self.combo = ttk.Combobox(self, width=15, textvariable=self.mychoice)
 
-        path = "config.yaml"
+        path = "../config.yaml"
         filepath = pkg_resources.resource_filename(__name__, path)
         urls_list = []
         with open(filepath) as f:
