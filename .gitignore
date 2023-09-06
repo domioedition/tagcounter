@@ -1,3 +1,4 @@
 .idea/
 venv/
-logger/py_log.log
+py_log.log
+.pytest_cache

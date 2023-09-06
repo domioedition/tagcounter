@@ -1,4 +1,4 @@
-from pasrser.parser import Parser
+from src.pasrser.parser import Parser
 
 
 class XmlParser(Parser):

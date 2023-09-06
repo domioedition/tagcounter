@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from pasrser.parser import Parser
+from src.pasrser.parser import Parser
 
 
 class HtmlParser(Parser):

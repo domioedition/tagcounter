@@ -2,11 +2,9 @@ import argparse
 
 import requests
 
-from logger.logger_handler import LoggerHandler
-from pasrser.html_parser import HtmlParser
-from pasrser.xml_parser import XmlParser
-from statstic.statistic_handler import StatisticHandler
-from tagcounter.tagcounterhandler import TagCounterHandler
+from src.logger.logger_handler import LoggerHandler
+from src.pasrser.html_parser import HtmlParser
+from src.tagcounterhandler import TagCounterHandler
 
 
 def main():

@@ -6,7 +6,7 @@ class LoggerHandler:
         self._logging = logging
 
         self._logging.basicConfig(
-            level=logging.INFO, filename="logger/py_log.log", filemode="a"
+            level=logging.INFO, filename="py_log.log", filemode="a"
         )
 
     def info(self, msg):
