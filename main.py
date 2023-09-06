@@ -4,7 +4,7 @@ import requests
 
 from src.logger.logger_handler import LoggerHandler
 from src.pasrser.html_parser import HtmlParser
-from src.tagcounterhandler import TagCounterHandler
+from src.tag_counter_handler import TagCounterHandler
 
 
 def main():
